@@ -8,9 +8,10 @@ import { createBookingSchema } from './booking.validation';
 
 const router = Router();
 
-router.post('/', checkAuth(Role.TOURIST), validateRequest(createBookingSchema), BookingController.createBooking);
+router.post('/create', checkAuth(Role.TOURIST, Role.ADMIN), validateRequest(createBookingSchema), BookingController.createBooking);
 router.patch('/:id', checkAuth(Role.TOURIST, Role.GUIDE, Role.ADMIN), BookingController.updateBooking);
 router.get('/:id', checkAuth(Role.TOURIST, Role.GUIDE, Role.ADMIN), BookingController.getBookingById);
+router.delete('/:id', checkAuth(Role.TOURIST, Role.GUIDE, Role.ADMIN), BookingController.cancelBooking);
 router.get('/', checkAuth(Role.TOURIST, Role.GUIDE, Role.ADMIN), BookingController.getBookings);
 
-export default router;
+export const BookingRoutes = router;

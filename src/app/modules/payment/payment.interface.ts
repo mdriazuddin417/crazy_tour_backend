@@ -9,6 +9,13 @@ export enum PAYMENT_STATUS {
     REFUNDED = "REFUNDED"
 }
 
+export enum PAYMENT_METHOD {
+    CASH = "CASH",
+    ONLINE = "ONLINE",
+    BANK_TRANSFER = "BANK_TRANSFER",
+    CHEQUE = "CHEQUE",
+    OTHER = "OTHER"
+}
 export interface IPayment {
     booking: Types.ObjectId;
     transactionId: string;

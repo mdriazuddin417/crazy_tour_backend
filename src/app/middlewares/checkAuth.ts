@@ -10,21 +10,22 @@ import { verifyToken } from "../utils/jwt";
 export const checkAuth = (...authRoles: string[]) => async (req: Request, res: Response, next: NextFunction) => {
 
     try {
-        const accessToken = req.headers.authorization;
+        const accessToken = req.cookies?.accessToken;
+        console.error("accessToken", accessToken);
 
         if (!accessToken) {
-            throw new AppError(403, "No Token Recieved")
+            throw new AppError(403, "No Token Received")
         }
 
 
         const verifiedToken = verifyToken(accessToken, envVars.JWT_ACCESS_SECRET) as JwtPayload
-
+        console.error("verifiedToken", verifiedToken);
         const isUserExist = await User.findOne({ email: verifiedToken.email })
-
+        console.error("isUserExist", isUserExist);
         if (!isUserExist) {
             throw new AppError(httpStatus.BAD_REQUEST, "User does not exist")
         }
-        if (!isUserExist.isVerified) {
+        if (!isUserExist.verified) {
             throw new AppError(httpStatus.BAD_REQUEST, "User is not verified")
         }
         if (isUserExist.isActive === IsActive.BLOCKED || isUserExist.isActive === IsActive.INACTIVE) {

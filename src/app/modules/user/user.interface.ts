@@ -1,10 +1,10 @@
 import { Types } from "mongoose";
+import { TourCategory } from "../listing/listing.model";
 
 export enum Role {
     ADMIN = "ADMIN",
     GUIDE = "GUIDE",
     TOURIST = "TOURIST",
-
 }
 
 //auth providers
@@ -26,15 +26,21 @@ export interface IUser {
     email: string;
     password?: string;
     phone?: string;
-    picture?: string;
     address?: string;
     isDeleted?: string;
     isActive?: IsActive;
-    isVerified?: boolean;
     role: Role;
     auths: IAuthProvider[];
     bookings?: Types.ObjectId[];
     guides?: Types.ObjectId[];
-    createdAt?: Date
-
+    createdAt?: Date,
+    profilePic?: string;
+    bio?: string;
+    languagesSpoken: string[];
+    expertise?: TourCategory[];
+    dailyRate?: number;
+    totalToursGiven?: number;
+    averageRating?: number;
+    verified?: boolean;
+    updatedAt: Date;
 }

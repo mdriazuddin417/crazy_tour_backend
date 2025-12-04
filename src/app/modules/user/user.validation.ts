@@ -6,20 +6,6 @@ export const createUserZodSchema = z.object({
         .string({ invalid_type_error: "Name must be string" })
         .min(2, { message: "Name must be at least 2 characters long." })
         .max(50, { message: "Name cannot exceed 50 characters." }),
-    // name: z.object({
-    //     firstName: z.string({ invalid_type_error: "Name must be string" })
-    //         .min(2, { message: "Name must be at least 2 characters long." })
-    //         .max(50, { message: "Name cannot exceed 50 characters." }),
-    //     lastName: z.object({
-    //         nickName: z.string({ invalid_type_error: "Name must be string" })
-    //             .min(2, { message: "Name must be at least 2 characters long." })
-    //             .max(50, { message: "Name cannot exceed 50 characters." }),
-
-    //         surName: z.string({ invalid_type_error: "Name must be string" })
-    //             .min(2, { message: "Name must be at least 2 characters long." })
-    //             .max(50, { message: "Name cannot exceed 50 characters." }),
-    //     })
-    // }),
     email: z
         .string({ invalid_type_error: "Email must be string" })
         .email({ message: "Invalid email address format." })
@@ -43,9 +29,41 @@ export const createUserZodSchema = z.object({
             message: "Phone number must be valid for Bangladesh. Format: +8801XXXXXXXXX or 01XXXXXXXXX",
         })
         .optional(),
-    address: z
-        .string({ invalid_type_error: "Address must be string" })
-        .max(200, { message: "Address cannot exceed 200 characters." })
+    profilePic: z
+        .string({ invalid_type_error: "Profile Picture must be string" })
+        .url({ message: "Invalid profile picture URL." })
+        .optional(),
+    bio: z
+        .string({ invalid_type_error: "Bio must be string" })
+        .max(200, { message: "Bio cannot exceed 200 characters." })
+        .optional(),
+    languagesSpoken: z
+        .array(z.string({ invalid_type_error: "Languages Spoken must be string" }))
+        .min(1, { message: "Languages Spoken must be at least 1 language." })
+        .max(10, { message: "Languages Spoken cannot exceed 10 languages." })
+        .optional(),
+    expertise: z
+        .array(z.string({ invalid_type_error: "Expertise must be string" }))
+        .min(1, { message: "Expertise must be at least 1 expertise." })
+        .max(10, { message: "Expertise cannot exceed 10 expertise." })
+        .optional(),
+    dailyRate: z
+        .number({ invalid_type_error: "Daily Rate must be number" })
+        .min(0, { message: "Daily Rate must be at least 0." })
+        .max(1000000, { message: "Daily Rate cannot exceed 1000000." })
+        .optional(),
+    totalToursGiven: z
+        .number({ invalid_type_error: "Total Tours Given must be number" })
+        .min(0, { message: "Total Tours Given must be at least 0." })
+        .max(1000, { message: "Total Tours Given cannot exceed 1000." })
+        .optional(),
+    averageRating: z
+        .number({ invalid_type_error: "Average Rating must be number" })
+        .min(0, { message: "Average Rating must be at least 0." })
+        .max(5, { message: "Average Rating cannot exceed 5." })
+        .optional(),
+    verified: z
+        .boolean({ invalid_type_error: "Verified must be true or false" })
         .optional()
 })
 export const updateUserZodSchema = z.object({
@@ -68,11 +86,40 @@ export const updateUserZodSchema = z.object({
     isDeleted: z
         .boolean({ invalid_type_error: "isDeleted must be true or false" })
         .optional(),
-    isVerified: z
-        .boolean({ invalid_type_error: "isVerified must be true or false" })
+    profilePic: z
+        .string({ invalid_type_error: "Profile Picture must be string" })
+        .url({ message: "Invalid profile picture URL." })
         .optional(),
-    address: z
-        .string({ invalid_type_error: "Address must be string" })
-        .max(200, { message: "Address cannot exceed 200 characters." })
+    bio: z
+        .string({ invalid_type_error: "Bio must be string" })
+        .max(200, { message: "Bio cannot exceed 200 characters." })
+        .optional(),
+    languagesSpoken: z
+        .array(z.string({ invalid_type_error: "Languages Spoken must be string" }))
+        .min(1, { message: "Languages Spoken must be at least 1 language." })
+        .max(10, { message: "Languages Spoken cannot exceed 10 languages." })
+        .optional(),
+    expertise: z
+        .array(z.string({ invalid_type_error: "Expertise must be string" }))
+        .min(1, { message: "Expertise must be at least 1 expertise." })
+        .max(10, { message: "Expertise cannot exceed 10 expertise." })
+        .optional(),
+    dailyRate: z
+        .number({ invalid_type_error: "Daily Rate must be number" })
+        .min(0, { message: "Daily Rate must be at least 0." })
+        .max(1000000, { message: "Daily Rate cannot exceed 1000000." })
+        .optional(),
+    totalToursGiven: z
+        .number({ invalid_type_error: "Total Tours Given must be number" })
+        .min(0, { message: "Total Tours Given must be at least 0." })
+        .max(1000, { message: "Total Tours Given cannot exceed 1000." })
+        .optional(),
+    averageRating: z
+        .number({ invalid_type_error: "Average Rating must be number" })
+        .min(0, { message: "Average Rating must be at least 0." })
+        .max(5, { message: "Average Rating cannot exceed 5." })
+        .optional(),
+    verified: z
+        .boolean({ invalid_type_error: "Verified must be true or false" })
         .optional()
 })

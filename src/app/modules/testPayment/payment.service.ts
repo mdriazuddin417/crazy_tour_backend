@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { envVars } from '../../config/env';
-import { Booking } from '../booking/booking.modal';
+import { Booking, IBooking } from '../booking/booking.modal';
 import { IPayment, PAYMENT_STATUS } from '../payment/payment.interface';
-import { IUser } from '../testUser/user.modal';
+import { IUser } from '../user/user.interface';
 import { Payment } from './payment.model';
 
 import { BookingStatus } from '../booking/booking.modal';
 
 export const PaymentService = {
-  createPaymentSession: async (payload: Record<string, string>, user: IUser) => {
-    if (!payload.bookingId) throw new Error('bookingId required');
-    const booking = await Booking.findById(payload.bookingId);
+  createPaymentSession: async (payload: IBooking, user: IUser) => {
+    if (!payload._id) throw new Error('bookingId required');
+    const booking = await Booking.findById(payload._id);
     if (!booking) throw new Error('Booking not found');
 
     const sslPayload = {

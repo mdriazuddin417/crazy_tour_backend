@@ -1,9 +1,9 @@
 import { Router } from "express"
 import { AuthRoutes } from "../modules/auth/auth.route"
-import { BookingRoutes } from "../modules/booking/booking.route"
-import { OtpRoutes } from "../modules/otp/otp.route"
+import { BookingRoutes } from "../modules/booking/booking.routes"
+import { ListingRoutes } from "../modules/listing/listing.routes"
 import { PaymentRoutes } from "../modules/payment/payment.route"
-import { StatsRoutes } from "../modules/stats/stats.route"
+import { TourTypeRoutes } from "../modules/tourType/tourType.routes"
 import { UserRoutes } from "../modules/user/user.route"
 
 export const router = Router()
@@ -18,6 +18,14 @@ const moduleRoutes = [
         route: AuthRoutes
     },
     {
+        path: "/tour-type",
+        route: TourTypeRoutes
+    },
+    {
+        path: "/listing",
+        route: ListingRoutes
+    },
+    {
         path: "/booking",
         route: BookingRoutes
     },
@@ -25,14 +33,14 @@ const moduleRoutes = [
         path: "/payment",
         route: PaymentRoutes
     },
-    {
-        path: "/otp",
-        route: OtpRoutes
-    },
-    {
-        path: "/stats",
-        route: StatsRoutes
-    },
+    // {
+    //     path: "/otp",
+    //     route: OtpRoutes
+    // },
+    // {
+    //     path: "/stats",
+    //     route: StatsRoutes
+    // },
     // {
     //     path: "/tour",
     //     route: TourRoutes

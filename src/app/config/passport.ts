@@ -24,10 +24,10 @@ passport.use(
                 return done("User does not exist")
             }
 
-            if (!isUserExist.isVerified) {
-                // throw new AppError(httpStatus.BAD_REQUEST, "User is not verified")
-                return done("User is not verified")
-            }
+            // if (!isUserExist.isVerified) {
+            //     // throw new AppError(httpStatus.BAD_REQUEST, "User is not verified")
+            //     return done("User is not verified")
+            // }
 
             if (isUserExist.isActive === IsActive.BLOCKED || isUserExist.isActive === IsActive.INACTIVE) {
                 // throw new AppError(httpStatus.BAD_REQUEST, `User is ${isUserExist.isActive}`)
@@ -80,7 +80,7 @@ passport.use(
                 }
 
                 let isUserExist = await User.findOne({ email })
-                if (isUserExist && !isUserExist.isVerified) {
+                if (isUserExist && !isUserExist.verified) {
                     // throw new AppError(httpStatus.BAD_REQUEST, "User is not verified")
                     // done("User is not verified")
                     return done(null, false, { message: "User is not verified" })
@@ -102,7 +102,7 @@ passport.use(
                         name: profile.displayName,
                         picture: profile.photos?.[0].value,
                         role: Role.TOURIST,
-                        isVerified: true,
+                        verified: true,
                         auths: [
                             {
                                 provider: "google",

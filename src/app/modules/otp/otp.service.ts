@@ -22,7 +22,7 @@ const sendOTP = async (email: string, name: string) => {
         throw new AppError(404, "User not found")
     }
 
-    if (user.isVerified) {
+    if (user.verified) {
         throw new AppError(401, "You are already verified")
     }
     const otp = generateOtp();
@@ -55,7 +55,7 @@ const verifyOTP = async (email: string, otp: string) => {
         throw new AppError(404, "User not found")
     }
 
-    if (user.isVerified) {
+    if (user.verified) {
         throw new AppError(401, "You are already verified")
     }
 
@@ -73,7 +73,7 @@ const verifyOTP = async (email: string, otp: string) => {
 
 
     await Promise.all([
-        User.updateOne({ email }, { isVerified: true }, { runValidators: true }),
+        User.updateOne({ email }, { verified: true }, { runValidators: true }),
         redisClient.del([redisKey])
     ])
 

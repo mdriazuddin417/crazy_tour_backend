@@ -1,12 +1,15 @@
-import { QueryBuilder } from "../../utils/QueryBuilder";
-import { TourListing, tourListingSortableFields } from "./listing.model";
+
+import AppError from "../../errorHelpers/AppError";
+import QueryBuilder from "../../utils/QueryBuilder_chat";
+import { ITourListing, TourListing, tourListingSortableFields } from "./listing.model";
 
 export const ListingService = {
-    createListing: async (payload: Record<string, string>) => {
+    createListing: async (payload: ITourListing) => {
         return await TourListing.create(payload);
     },
 
     getListings: async (query: Record<string, string>) => {
+        console.log('getListings query', query);
         const qb = new QueryBuilder(TourListing.find({ isActive: true }), query);
 
         const listings = await qb.search(tourListingSortableFields)
@@ -21,14 +24,26 @@ export const ListingService = {
     },
 
     getListingById: async (id: string) => {
-        return await TourListing.findById(id);
+        const listing = await TourListing.findById(id);
+        if (!listing) {
+            throw new AppError(404, 'Listing not found');
+        }
+        return listing
     },
 
     updateListing: async (id: string, payload: Record<string, string>) => {
-        return await TourListing.findByIdAndUpdate(id, payload, { new: true });
+        const listing = await TourListing.findByIdAndUpdate(id, payload, { new: true });
+        if (!listing) {
+            throw new AppError(404, 'Listing not found');
+        }
+        return listing;
     },
 
     deleteListing: async (id: string) => {
-        return await TourListing.findByIdAndUpdate(id, { isActive: false }, { new: true });
+        const listing = await TourListing.findByIdAndUpdate(id, { isActive: false }, { new: true });
+        if (!listing) {
+            throw new AppError(404, 'Listing not found');
+        }
+        return listing;
     },
 };

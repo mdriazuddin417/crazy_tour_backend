@@ -8,10 +8,10 @@ import { createTourTypeZodSchema, updateTourTypeZodSchema } from './tourType.val
 
 const router = Router();
 
-router.post('/create',  checkAuth(Role.ADMIN), validateRequest(createTourTypeZodSchema), TourTypeController.createTourType);
+router.post('/create', checkAuth(Role.ADMIN), validateRequest(createTourTypeZodSchema), TourTypeController.createTourType);
 router.get('/', TourTypeController.getAllTourTypes);
 router.get('/:id', TourTypeController.getSingleTourType);
-router.patch('/:id',  checkAuth(Role.ADMIN), validateRequest(updateTourTypeZodSchema), TourTypeController.updateTourType);
-router.delete('/:id',  checkAuth(Role.ADMIN), TourTypeController.deleteTourType);
+router.patch('/:id', checkAuth(Role.ADMIN), validateRequest(updateTourTypeZodSchema), TourTypeController.updateTourType);
+router.delete('/:id', checkAuth(Role.ADMIN), TourTypeController.deleteTourType);
 
-export default router;
+export const TourTypeRoutes = router;

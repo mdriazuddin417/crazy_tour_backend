@@ -1,6 +1,6 @@
 import QueryBuilder from "../../utils/QueryBuilder_chat";
 import { Booking } from "../booking/booking.modal";
-import { User } from "../testUser/user.modal";
+import { User } from "../user/user.model";
 import { IReview, Review } from "./review.modal";
 
 

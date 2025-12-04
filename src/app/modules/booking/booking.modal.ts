@@ -5,7 +5,8 @@ export enum BookingStatus {
   PENDING = "PENDING",
   CONFIRMED = "CONFIRMED",
   COMPLETED = "COMPLETED",
-  CANCELLED = "CANCELLED"
+  CANCELLED = "CANCELLED",
+  FAILED = "FAILED"
 }
 
 export interface IBooking extends Document {

@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import { TourCategory } from "../listing/listing.model";
 import { IAuthProvider, IsActive, IUser, Role } from "./user.interface";
 
 
@@ -20,7 +21,7 @@ const userSchema = new Schema<IUser>({
         default: Role.TOURIST
     },
     phone: { type: String },
-    picture: { type: String },
+    profilePic: { type: String },
     address: { type: String },
     isDeleted: { type: Boolean, default: false },
     isActive: {
@@ -28,8 +29,14 @@ const userSchema = new Schema<IUser>({
         enum: Object.values(IsActive),
         default: IsActive.ACTIVE,
     },
-    isVerified: { type: Boolean, default: false },
     auths: [authProviderSchema],
+    bio: String,
+    languagesSpoken: { type: [String], default: [] },
+    expertise: { type: [String], enum: Object.values(TourCategory), default: [] },
+    dailyRate: Number,
+    totalToursGiven: { type: Number, default: 0 },
+    averageRating: { type: Number, default: 0 },
+    verified: { type: Boolean, default: false }
 }, {
     timestamps: true,
     versionKey: false

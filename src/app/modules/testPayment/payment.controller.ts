@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { catchAsync } from '../../utils/catchAsync';
 import { sendResponse } from '../../utils/sendResponse';
-import { IUser } from '../testUser/user.modal';
+import { IUser } from '../user/user.interface';
 import { PaymentService } from './payment.service';
 
 

@@ -8,10 +8,10 @@ import { createTourSchema, updateTourSchema } from './listing.validation';
 
 const router = Router();
 
-router.post('/', checkAuth(Role.GUIDE, Role.ADMIN), validateRequest(createTourSchema), ListingController.createListing);
+router.post('/create', checkAuth(Role.GUIDE, Role.ADMIN), validateRequest(createTourSchema), ListingController.createListing);
 router.get('/', ListingController.getListings);
 router.get('/:id', ListingController.getListingById);
 router.patch('/:id', checkAuth(Role.GUIDE, Role.ADMIN), validateRequest(updateTourSchema), ListingController.updateListing);
 router.delete('/:id', checkAuth(Role.GUIDE, Role.ADMIN), ListingController.deleteListing);
 
-export default router;
+export const ListingRoutes = router;
