@@ -36,7 +36,7 @@ const userSchema = new Schema<IUser>({
     dailyRate: Number,
     totalToursGiven: { type: Number, default: 0 },
     averageRating: { type: Number, default: 0 },
-    verified: { type: Boolean, default: false }
+    verified: { type: Boolean, default: true }
 }, {
     timestamps: true,
     versionKey: false

@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const createTourSchema = z.object({
   title: z.string().min(3),
   guideId: z.string(),
-  description: z.string().min(10),
+  description: z.string().optional(),
   category: z.enum(['FOOD', 'HISTORY', 'ART', 'ADVENTURE', 'NIGHTLIFE', 'SHOPPING', 'PHOTOGRAPHY', 'CULTURE']),
   city: z.string(),
   country: z.string().optional(),

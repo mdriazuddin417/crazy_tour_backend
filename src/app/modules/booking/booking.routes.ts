@@ -11,7 +11,7 @@ const router = Router();
 router.post('/create', checkAuth(Role.TOURIST, Role.ADMIN), validateRequest(createBookingSchema), BookingController.createBooking);
 router.patch('/:id', BookingController.updateBooking);
 router.get('/:id',  BookingController.getBookingById);
-router.delete('/:id', BookingController.cancelBooking);
-router.get('/',  BookingController.getBookings);
+router.delete('/:id', checkAuth(...Object.values(Role)), BookingController.cancelBooking);
+router.get('/',  checkAuth(...Object.values(Role)),BookingController.getBookings);
 
 export const BookingRoutes = router;

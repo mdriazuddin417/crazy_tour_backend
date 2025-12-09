@@ -1,6 +1,5 @@
 import bcryptjs from "bcryptjs";
 import httpStatus from "http-status-codes";
-import { JwtPayload } from "jsonwebtoken";
 import { envVars } from "../../config/env";
 import AppError from "../../errorHelpers/AppError";
 import { QueryBuilder } from "../../utils/QueryBuilder";
@@ -33,29 +32,12 @@ const createUser = async (payload: Partial<IUser>) => {
 
 }
 
-const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken: JwtPayload) => {
-
-    // if (decodedToken.role === Role.TOURIST || decodedToken.role === Role.GUIDE) {
-    //     if (userId !== decodedToken.userId) {
-    //         throw new AppError(401, "You are not authorized")
-    //     }
-    // }
-
+const updateUser = async (userId: string, payload: Partial<IUser>) => {
     const ifUserExist = await User.findById(userId);
 
     if (!ifUserExist) {
         throw new AppError(httpStatus.NOT_FOUND, "User Not Found")
     }
-
-    // if (decodedToken.role === Role.ADMIN) {
-    //     throw new AppError(401, "You are not authorized")
-    // }
-
-    // if (payload.role) {
-    //     if (decodedToken.role === Role.TOURIST || decodedToken.role === Role.GUIDE) {
-    //         throw new AppError(httpStatus.FORBIDDEN, "You are not authorized");
-    //     }
-    // }
 
     if (payload.isActive || payload.isDeleted || payload.verified) {
 

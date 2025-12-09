@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 
 import mongoose, { Types } from 'mongoose';
 import AppError from '../../errorHelpers/AppError';
@@ -144,11 +144,7 @@ export const BookingService = {
   getBookings: async (query: Record<string, string>, user: IUser) => {
 
     const filter: Record<string, string> = {};
-    // if (user?.role === Role.GUIDE) {
-    //   filter.guideId = String(user._id);
-    // } else if (user?.role === Role.TOURIST) {
-    //   filter.touristId = String(user._id);
-    // }
+    filter[user?.role === Role.GUIDE ? 'guideId' : 'touristId'] = Object(user?.userId);
     if (query.status) {
       filter.status = query.status as string;
     }
@@ -165,12 +161,12 @@ export const BookingService = {
         (filter.requestedDate as unknown as Record<string, Date>).$lte = new Date(query.toDate) as unknown as Date;
       }
     }
-    const initialModelQuery = Booking.find(filter).populate('tourListingId','title price category city').populate({ path: 'guideId', select: 'name email' }).populate({ path: 'touristId', select: 'name email' }).populate({path: 'paymentId', select: 'status transactionId amount'});
+    
+    const initialModelQuery = Booking.find(filter).populate('tourListingId', 'title price category city').populate({ path: 'guideId', select: 'name email' }).populate({ path: 'touristId', select: 'name email' }).populate({ path: 'paymentId', select: 'status transactionId amount' });
     const qb = new QueryBuilder(initialModelQuery, query as Record<string, string>);
 
     const docs = await qb
       .search(['notes'])
-      .filter() // This applies any remaining general filters from the URL query
       .sort()
       .paginate()
       .fields()
@@ -187,7 +183,7 @@ export const BookingService = {
     if (!booking) throw new Error('Booking not found');
     return Booking
 
-    
+
   }
 
 };

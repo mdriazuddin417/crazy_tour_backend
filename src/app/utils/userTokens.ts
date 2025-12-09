@@ -42,6 +42,7 @@ export const createNewAccessTokenWithRefreshToken = async (refreshToken: string)
 
     const jwtPayload = {
         userId: isUserExist._id,
+        _id: isUserExist._id,
         email: isUserExist.email,
         role: isUserExist.role
     }
