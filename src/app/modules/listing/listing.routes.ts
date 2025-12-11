@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { multerUpload } from '../../config/multer.config';
 import { checkAuth } from '../../middlewares/checkAuth';
 import { validateRequest } from '../../middlewares/validateRequest';
 import { Role } from '../user/user.interface';
@@ -8,7 +9,7 @@ import { createTourSchema, updateTourSchema } from './listing.validation';
 
 const router = Router();
 
-router.post('/create', checkAuth(Role.GUIDE, Role.ADMIN), validateRequest(createTourSchema), ListingController.createListing);
+router.post('/create', checkAuth(Role.GUIDE, Role.ADMIN),multerUpload.array("files"), validateRequest(createTourSchema), ListingController.createListing);
 router.get('/', ListingController.getListings);
 router.get('/:id', ListingController.getListingById);
 router.patch('/:id', checkAuth(Role.GUIDE, Role.ADMIN), validateRequest(updateTourSchema), ListingController.updateListing);

@@ -96,24 +96,10 @@ export const BookingService = {
     }
   },
 
-  updateBooking: async (id: string, payload: Record<string, string>, user: IUser) => {
+  updateBooking: async (id: string, payload: Record<string, string>) => {
     const booking = await Booking.findById(id);
     if (!booking) throw new Error('Booking not found');
-    if (payload.status === BookingStatus.CONFIRMED) {
-      if (!user || (String(user._id) !== String(booking.guideId) && user.role !== Role.ADMIN)) {
-        throw new Error('Not authorized to confirm');
-      }
-    }
-    if (payload.status === BookingStatus.CANCELLED) {
-      if (!user || (String(user._id) !== String(booking.touristId) && user.role !== Role.ADMIN)) {
-        throw new Error('Not authorized to cancel');
-      }
-    }
-    if (payload.status === BookingStatus.COMPLETED) {
-      if (!user || (String(user._id) !== String(booking.guideId) && user.role !== Role.ADMIN)) {
-        throw new Error('Not authorized to complete');
-      }
-    }
+
 
     const tour = await TourListing.findById(booking.tourListingId);
     if (!tour) {

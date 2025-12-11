@@ -13,7 +13,7 @@ export const BookingController = {
   }),
 
   updateBooking: catchAsync(async (req: Request, res: Response) => {
-    const data = await BookingService.updateBooking(req.params.id, req.body, (req as unknown as { user: IUser }).user as IUser);
+    const data = await BookingService.updateBooking(req.params.id, req.body);
     return sendResponse(res, { statusCode: 200, success: true, message: 'Booking updated', data });
   }),
 

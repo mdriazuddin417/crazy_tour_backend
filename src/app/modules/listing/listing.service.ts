@@ -5,6 +5,7 @@ import { ITourListing, TourListing, tourListingSortableFields } from "./listing.
 
 export const ListingService = {
     createListing: async (payload: ITourListing) => {
+        console.log('payload',payload);
         return await TourListing.create(payload);
     },
 

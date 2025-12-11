@@ -34,12 +34,13 @@ const createUser = async (payload: Partial<IUser>) => {
 
 const updateUser = async (userId: string, payload: Partial<IUser>) => {
     const ifUserExist = await User.findById(userId);
+    console.log('payload',payload);
 
     if (!ifUserExist) {
         throw new AppError(httpStatus.NOT_FOUND, "User Not Found")
     }
 
-    if (payload.isActive || payload.isDeleted || payload.verified) {
+    if (payload.isActive || payload.isDeleted) {
 
         throw new AppError(httpStatus.FORBIDDEN, "You are not authorized");
 

@@ -1,12 +1,17 @@
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
+import { ITourListing } from "./listing.model";
 import { ListingService } from "./listing.service";
 
 
 
 export const ListingController = {
     createListing: catchAsync(async (req, res) => {
-        const result = await ListingService.createListing(req.body);
+         const payload: ITourListing = {
+        ...req.body,
+        images: (req.files as Express.Multer.File[]).map(file => file.path)
+    }
+        const result = await ListingService.createListing(payload);
 
         sendResponse(res, {
             statusCode: 201,

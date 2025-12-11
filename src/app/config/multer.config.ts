@@ -7,8 +7,6 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinaryUpload,
     params: {
         public_id: (req, file) => {
-            // My Special.Image#!@.png => 4545adsfsadf-45324263452-my-image.png
-            // My Special.Image#!@.png => [My Special, Image#!@, png]
 
             const fileName = file.originalname
                 .toLowerCase()
@@ -16,6 +14,8 @@ const storage = new CloudinaryStorage({
                 .replace(/\./g, "-")
                 // eslint-disable-next-line no-useless-escape
                 .replace(/[^a-z0-9\-\.]/g, "") // non alpha numeric - !@#$
+
+                console.log('fileName',fileName);
 
             const extension = file.originalname.split(".").pop()
 
