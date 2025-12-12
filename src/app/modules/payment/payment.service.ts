@@ -65,7 +65,7 @@ const successPayment = async (query: Record<string, string>) => {
         const updatedBooking = await Booking
             .findByIdAndUpdate(
                 updatedPayment?.booking,
-                { status: BookingStatus.CONFIRMED },
+                { status: BookingStatus.PENDING },
                 { new: true, runValidators: true, session }
             )
             .populate("tourListingId", "title")
