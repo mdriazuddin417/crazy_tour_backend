@@ -65,7 +65,7 @@ const successPayment = async (query: Record<string, string>) => {
         const updatedBooking = await Booking
             .findByIdAndUpdate(
                 updatedPayment?.booking,
-                { status: BookingStatus.COMPLETED },
+                { status: BookingStatus.CONFIRMED },
                 { new: true, runValidators: true, session }
             )
             .populate("tourListingId", "title")
@@ -93,7 +93,7 @@ const successPayment = async (query: Record<string, string>) => {
         }
 
         await Payment.findByIdAndUpdate(updatedPayment._id, { invoiceUrl: cloudinaryResult.secure_url }, { runValidators: true, session })
-        const email = 'mdriazuddin417@gmail.com' //(updatedBooking.touristId as unknown as IUser).email
+        const email = (updatedBooking.touristId as unknown as IUser).email //(updatedBooking.touristId as unknown as IUser).email
         if (email) {
             await sendEmail({
                 to: email,

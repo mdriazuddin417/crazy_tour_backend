@@ -17,21 +17,12 @@ export const checkAuth = (...authRoles: string[]) => async (req: Request, res: R
         if (req.headers.authorization?.startsWith("Bearer ")) {
             accessToken = req.headers.authorization.split(" ")[1];
         }
-
         if (!accessToken) {
             accessToken = req.cookies?.accessToken;
         }
-
         if (!accessToken) {
             throw new AppError(403, "No Token Received");
         }
-
-
-        if (!accessToken) {
-            throw new AppError(403, "No Token Received")
-        }
-
-
         const verifiedToken = verifyToken(accessToken, envVars.JWT_ACCESS_SECRET) as JwtPayload
 
         const isUserExist = await User.findOne({ email: verifiedToken.email })

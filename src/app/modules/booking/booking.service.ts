@@ -130,7 +130,9 @@ export const BookingService = {
   getBookings: async (query: Record<string, string>, user: IUser) => {
 
     const filter: Record<string, string> = {};
-    filter[user?.role === Role.GUIDE ? 'guideId' : 'touristId'] = Object(user?.userId);
+    if(user?.role===Role.GUIDE || user?.role===Role.TOURIST){
+      filter[user?.role === Role.GUIDE ? 'guideId' : 'touristId'] = Object(user?.userId);
+    }
     if (query.status) {
       filter.status = query.status as string;
     }

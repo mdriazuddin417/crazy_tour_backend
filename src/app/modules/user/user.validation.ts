@@ -55,6 +55,9 @@ export const createUserZodSchema = z.object({
         .optional(),
     verified: z
         .boolean({ invalid_type_error: "Verified must be true or false" })
+        .optional(),
+    role: z
+        .nativeEnum(Role)
         .optional()
 })
 export const updateUserZodSchema = z.object({
