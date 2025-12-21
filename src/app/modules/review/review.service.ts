@@ -41,7 +41,7 @@ export const ReviewService = {
 
   getAllReviews: async (query: Record<string, string>) => {
     const qb = new QueryBuilder(Review.find(), query);
-    const docs = await qb.search(reviewSortableFields).filter().sort().paginate().fields().build();
+    const docs = await qb.search(reviewSortableFields).filter().sort().paginate().fields().populate('touristId', 'name email profilePic role' ).build();
     const meta = await qb.getMeta();
     return { data: docs, meta };
   }

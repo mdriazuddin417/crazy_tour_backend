@@ -84,6 +84,10 @@ export default class QueryBuilder {
     this.baseQuery = this.baseQuery.skip(skip).limit(limit);
     return this;
   }
+  populate(path: string, select?: string) {
+  this.baseQuery = this.baseQuery.populate(path, select);
+  return this;
+}
 
   async build() {
     return await this.baseQuery.exec();

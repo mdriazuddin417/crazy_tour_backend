@@ -21,11 +21,11 @@ const createUser = catchAsync(async (req: Request, res: Response, next: NextFunc
 })
 const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.params.id;
-    console.log('req.file',req.file);
+
 
      const payload: IUser = {
         ...req.body,
-        profilePic: ''
+        profilePic:req.body.profilePic?req.body.profilePic:''
     }
 
     const user = await UserServices.updateUser(userId, payload)
